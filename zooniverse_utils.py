@@ -26,6 +26,7 @@ def createRBdf(zooniverse, multilabel, verbose=False, readsaved=False):
 
   print("assembling RB labels dataframe")
   if readsaved:
+    print("reading from file savedrbdf.csv")
     rbdf = pd.read_csv("savedrbdf.csv", index_col=0)
   else:
     #if TEST: indices = indices[:100_000]
@@ -34,7 +35,7 @@ def createRBdf(zooniverse, multilabel, verbose=False, readsaved=False):
         if 'Bogus' in multilabelsubjects.loc[ind].index else 0
       rbdf.loc[ind,'Real_count'] = multilabelsubjects.loc[ind].loc['Real', 'classification_id']  \
         if 'Real' in multilabelsubjects.loc[ind].index else 0
-    #rbdf.to_csv("savedrbdf.csv")
+    rbdf.to_csv("savedrbdf.csv")
   if verbose:
     print("\n\n\n#######################\nreal-bogus df head")
     display(rbdf.head())
@@ -243,6 +244,6 @@ def show_triplet_and_posteriors(subject, zooniverse, posteriors=None,
   plt.xlabel("classifications")
   plt.ylabel("posterior")
   plt.title(f"{subject}")
-  plt.legend
+  plt.legend()
 
   plt.show()

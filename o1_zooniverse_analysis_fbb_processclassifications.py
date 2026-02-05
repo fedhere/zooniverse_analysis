@@ -49,7 +49,6 @@ def processclassifications(infile, workflow_id="24125",
       lambda x: json.loads(x) if isinstance(x, str) else []
   )
 
-
   nannotations = np.array([len(a) for a in annotations])
   #check for annotation on same subject by same user
   greaterthanoneannotation = nannotations>1
@@ -60,7 +59,7 @@ def processclassifications(infile, workflow_id="24125",
   assert (greaterthanoneannotation>0).sum()==0, "there are annotations by the same user on the same subject"
   
   #set label column
-  zooniverse["label"] = [a[0]["value"] for a in annotations]
+  zooniverse["label"] = [a[0]["value"].strip("\n") for a in annotations]
 
   
   #save subjects list
