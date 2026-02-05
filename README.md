@@ -1,2 +1,2 @@
 # zooniverse_analysis
-ditto
+code to analyze zooniverse labels
