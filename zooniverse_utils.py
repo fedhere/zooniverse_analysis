@@ -13,7 +13,7 @@ from zooniverse_config import *
 
 
 
-def createRBdf(zooniverse, multilabel, verbose=False, readsaved=False):
+def createRBdf(zooniverse, multilabel, verbose=False, readsaved=False, savefile=False):
   
   #only use subjects with >1 label
   multilabelsubjects = zooniverse[multilabel].groupby(['subjects_id', 'label']).count()
@@ -35,7 +35,8 @@ def createRBdf(zooniverse, multilabel, verbose=False, readsaved=False):
         if 'Bogus' in multilabelsubjects.loc[ind].index else 0
       rbdf.loc[ind,'Real_count'] = multilabelsubjects.loc[ind].loc['Real', 'classification_id']  \
         if 'Real' in multilabelsubjects.loc[ind].index else 0
-    rbdf.to_csv("savedrbdf.csv")
+    if savefile:
+      rbdf.to_csv("savedrbdf.csv")
   if verbose:
     print("\n\n\n#######################\nreal-bogus df head")
     display(rbdf.head())
